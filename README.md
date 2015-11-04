@@ -12,6 +12,7 @@ Rstudio with `shiny`, `dplyr` and [`whomap`](https://github.com/glaziou/whomap) 
 
 A quick way of running this code directly from RStudio is to do:
 ```
+> library(shiny)
 > runGitHub("tb_mapper", "hazimtimimi") 
 ```
 
