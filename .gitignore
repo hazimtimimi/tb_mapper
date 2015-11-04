@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+tb_mapper.Rproj
+
+# ignore all html files
+*.html
