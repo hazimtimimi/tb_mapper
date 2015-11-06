@@ -60,7 +60,7 @@ shinyServer(function(input, output) {
     mutate(map_bins = cut(var_to_plot,
                           breaks =  seq(min(var_to_plot),
                                         max(var_to_plot),
-                                        length.out = input$bins + 1)) )
+                                        length.out = as.numeric(input$bins) + 1)) )
 
   })
 

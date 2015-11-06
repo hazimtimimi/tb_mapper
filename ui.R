@@ -39,13 +39,13 @@ titlePanel("TB Mapper"),
         # Just for fun, add some animation
         animate=animationOptions(interval = 3000, loop = TRUE)),
 
-
-      # Widget to select number of categories in the map
-      # Note that the RColorBrewer sequential category used in the maps
-      # allows for a maximum of 9 colours
-      numericInput("bins",
+      # Drop-down to select number of categories in the map
+      # Note 1: drop-down is more user friendly than the numericInput widget
+      # Note 2: the RColorBrewer sequential category used in the maps
+      # allows for a maximum of 9 colours, so provide a choice between 3 and 9
+      selectInput("bins",
         label = "Number of categories",
-        value = 3, min = 3, max = 9, step = 1),
+        choices = seq.int(3,9)),
 
       # Drop-down to select colour scheme
       # (List from brewer.pal.info in RColorBrewer)
