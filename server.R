@@ -12,12 +12,14 @@
 library(shiny)
 library(dplyr)
 library(ggplot2)
+library(curl)
 
 # Build basic map layers
 source("build_base_map.r")
 
 # Load up data from the data downloads page
-estimates <- read.csv("https://extranet.who.int/tme/generateCSV.asp?ds=estimates",
+# (Using the curl package as some installations have problems downloading data via https)
+estimates <- read.csv(curl("https://extranet.who.int/tme/generateCSV.asp?ds=estimates"),
                       stringsAsFactors = FALSE) %>%
               select(iso3,
                      year,
