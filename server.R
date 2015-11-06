@@ -29,39 +29,48 @@ estimates <- read.csv("https://extranet.who.int/tme/generateCSV.asp?ds=estimates
                      c_cdr)
 
 
-
-
 shinyServer(function(input, output) {
+
+  # Prepare the data for plotting based on user's selected
+  # variable and year
+  # This is a 'reactive expression' so that the operations are
+  # not re-done if the user changes other things but not variable and year
+
+  df_var_year <- reactive({
+
+    # Create a dataframe restricted to the data needed for the map
+    # using choices selected in ui.R (referenced using input$ )
+    estimates %>%
+    select(iso3,
+           year,
+           var_to_plot = contains(input$variable)) %>%
+    # Remove any NAs
+    filter(!is.na(var_to_plot)) %>%
+    # Select the year
+    filter(year == input$year)
+
+  })
+
+  # Generate equally-spaced bins based on number of categories chosen
+  df_for_map <- reactive({
+
+    df_var_year() %>%
+    mutate(map_bins = cut(var_to_plot,
+                          breaks =  seq(min(var_to_plot),
+                                        max(var_to_plot),
+                                        length.out = input$bins + 1)) )
+
+  })
+
 
 
   output$world_map <- renderPlot({
 
-    # Create a dataframe restricted to the data needed for the map
-    # using choices selected in ui.R (referenced using input$ )
-    df_for_map <- estimates %>%
-                  select(iso3,
-                         year,
-                         var_to_plot = contains(input$variable)) %>%
-                  # Remove any NAs
-                  filter(!is.na(var_to_plot)) %>%
-                  # Select the year
-                  filter(year == input$year)
-
-    # Generate equally-spaced bins based on number of categories chosen
-    bins <- seq(min(df_for_map$var_to_plot),
-                max(df_for_map$var_to_plot),
-                length.out = input$bins + 1)
-
-    # Generate a new variable using the bins
-    df_for_map$map_bins <- cut(df_for_map$var_to_plot,
-                               breaks = bins)
-
-
     # Merge df_for_map with gworld shape dataframe based on ISO3 code
     to_map <- gworld %>%
-              full_join(df_for_map, by = c("id" = "iso3")) %>%
+              full_join(df_for_map(), by = c("id" = "iso3")) %>%
               arrange(order)
-    rm(df_for_map)
+
 
     # Plot the bins on the standard WHO map
     # (not bothering with the 'not applicable' category in legend for now)
@@ -90,7 +99,9 @@ shinyServer(function(input, output) {
                        fill = map_bins)) +
 
       # Add colour scheme and legend
-      scale_fill_brewer(name= paste(input$variable, input$year)) +
+      scale_fill_brewer(name = paste(input$variable, input$year),
+                        type ="seq",
+                        palette = input$colour_scheme) +
 
       # Set coordinate system and limits so get the appropriate zoom level
       coord_cartesian(xlim = c(-180,180)) +

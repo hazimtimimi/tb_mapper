@@ -41,9 +41,35 @@ titlePanel("TB Mapper"),
 
 
       # Widget to select number of categories in the map
+      # Note that the RColorBrewer sequential category used in the maps
+      # allows for a maximum of 9 colours
       numericInput("bins",
         label = "Number of categories",
-        value = 3, min = 3, max = 8, step = 1)
+        value = 3, min = 3, max = 9, step = 1),
+
+      # Drop-down to select colour scheme
+      # (List from brewer.pal.info in RColorBrewer)
+      selectInput("colour_scheme",
+        label = "Colour scheme",
+        choices = c("Blues" = "Blues",
+                    "Blue-green" = "BuGn",
+                    "Blue-purple" = "BuPu",
+                    "Green-blue" = "GnBu",
+                    "Greens" = "Greens",
+                    "Greys" = "Greys",
+                    "Oranges" = "Oranges",
+                    "Orange-red" = "OrRd",
+                    "Purple-blue" = "PuBu",
+                    "Purple-blue-green" = "PuBuGn",
+                    "Purple-red" = "PuRd",
+                    "Purples" = "Purples",
+                    "Red-purple" = "RdPu",
+                    "Reds" = "Reds",
+                    "Yellow-green" = "YlGn",
+                    "Yellow-green-blue" = "YlGnBu",
+                    "Yellow-orange-brown" = "YlOrBr",
+                    "Yellow-orange-red" = "YlOrRd"
+                    ))
     ),
 
     mainPanel(
