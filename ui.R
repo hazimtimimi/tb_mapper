@@ -24,7 +24,6 @@ titlePanel("TB Mapper"),
         label = "Choose what to map",
         choices = c("Incidence (all)" = "e_inc_100k",
                     "Incidence (HIV-positive)" = "e_inc_tbhiv_100k",
-                    "Prevalence" = "e_prev_100k",
                     "Mortality (HIV-negative)" = "e_mort_exc_tbhiv_100k",
                     "Mortality (HIV-positive)" = "e_mort_tbhiv_100k",
                     "Case detection rate (%)" = "c_cdr"
@@ -33,7 +32,7 @@ titlePanel("TB Mapper"),
       # Slider to select the year to plot
       sliderInput("year",
         label = "Year",
-        min = 1990, max = 2014, value = 2014,
+        min = 2000, max = 2017, value = 2017,
         #don't have thousands separators for years!
         sep="",
         # Just for fun, add some animation

@@ -23,7 +23,6 @@ estimates <- read.csv(curl("https://extranet.who.int/tme/generateCSV.asp?ds=esti
                       stringsAsFactors = FALSE) %>%
               select(iso3,
                      year,
-                     e_prev_100k,
                      e_inc_100k,
                      e_inc_tbhiv_100k,
                      e_mort_exc_tbhiv_100k,

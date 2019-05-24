@@ -30,4 +30,4 @@ These are the same shape files used in [`whomap`](https://github.com/glaziou/who
 
 ## Acknowledgments
 
-This is built on original work from [Tom Hiatt](https://github.com/tomhiatt) and [Philippe Glaziou](https://github.com/glaziou), and was inspired by ideas from Jonathan Polansky.
+This is built on original work from [Tom Hiatt](https://github.com/tomhiatt) and [Philippe Glaziou](https://github.com/glaziou), and was inspired by ideas from [Jonathan Polonsky](https://github.com/jpolonsky).
